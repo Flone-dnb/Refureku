@@ -36,7 +36,6 @@ else ()	# Clang or GCC
 	
 endif()
 
-
 # Copy the RefurekuSettings template file next to the generated binary
 add_custom_command(	TARGET ${RefurekuGeneratorExeTarget} PRE_BUILD
 					COMMAND ${CMAKE_COMMAND} -E copy

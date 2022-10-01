@@ -93,6 +93,8 @@ kodgen::ETraversalBehaviour	ReflectionCodeGenModule::generateClassFooterCodeForE
 
 			beginHiddenGeneratedCode(env, inout_result);
 
+			declareAndDefineGcNewMethod(static_cast<kodgen::StructClassInfo const&>(entity), env, inout_result);
+		
 			declareFriendClasses(static_cast<kodgen::StructClassInfo const&>(entity), env, inout_result);
 
 			declareAndDefineRegisterChildClassMethod(static_cast<kodgen::StructClassInfo const&>(entity), env, inout_result);
@@ -355,6 +357,22 @@ void ReflectionCodeGenModule::includeSourceFileHeaders(kodgen::MacroCodeGenEnv& 
 		"#include <Refureku/TypeInfo/Archetypes/Template/NonTypeTemplateParameter.h>" + env.getSeparator() +	//TODO: Only if there is a template class in the parsed data
 		"#include <Refureku/TypeInfo/Archetypes/Template/TemplateTemplateParameter.h>" + env.getSeparator() +	//TODO: Only if there is a template class in the parsed data
 		env.getSeparator();
+}
+
+void ReflectionCodeGenModule::declareAndDefineGcNewMethod(kodgen::StructClassInfo const& structClass, kodgen::MacroCodeGenEnv& env, std::string& inout_result) const noexcept
+{
+	// TODO: temporary solution, it should be in `rfk::Struct` instead (next to `makeUniqueInstance`).
+	if (structClass.parents.empty()) return;
+
+	std::string sOverride;
+	const auto sParentName = structClass.parents[0].type.getName();
+	if (sParentName != "rfk::Object" && sParentName != "rfk::Property")
+	{
+		sOverride += "override";
+	}
+	
+	inout_result += "public: virtual tgc2::gc<rfk::Object> gc_new() " + sOverride + " {return tgc2::gc_new<"
+			+ structClass.name + ">();}" + env.getSeparator();
 }
 
 void ReflectionCodeGenModule::declareFriendClasses(kodgen::StructClassInfo const& structClass, kodgen::MacroCodeGenEnv& env, std::string& inout_result) const noexcept

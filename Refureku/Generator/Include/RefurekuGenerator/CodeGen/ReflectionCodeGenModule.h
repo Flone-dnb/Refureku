@@ -246,9 +246,18 @@ namespace rfk
 			void	includeSourceFileHeaders(kodgen::MacroCodeGenEnv&	env,
 											 std::string&				inout_result)							const	noexcept;
 
-
-
 			//Struct / Class code generation
+			/**
+			*	@brief Generate the `gc_new` method for the provided class.
+			* 
+			*	@param structClass	Target struct/class.
+			*	@param env			Code generation environment.
+			*	@param inout_result	String to append the generated code.
+			*/
+			void	declareAndDefineGcNewMethod(kodgen::StructClassInfo const&	structClass,
+												kodgen::MacroCodeGenEnv&		env,
+												std::string&					inout_result)					const	noexcept;
+
 			/**
 			*	@brief Generate the friend statements for the provided class.
 			* 

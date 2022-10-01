@@ -3,3 +3,6 @@
 	path = Refureku/Generator/ThirdParty/Kodgen
 	url = https://github.com/Flone-dnb/Kodgen
 	branch = master
+[submodule "Refureku/Library/Include/Public/tgc2"]
+	path = Refureku/Library/Include/Public/tgc2
+	url = https://github.com/Flone-dnb/tgc2
