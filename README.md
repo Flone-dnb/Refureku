@@ -1,17 +1,48 @@
-<div align="center">
+# Refureku
 
-<img src="Docs/rfk-logo.svg" width=300>
+This is a fork of [jsoysouvanh/Refureku](https://github.com/jsoysouvanh/Refureku), here is a list of chages compared to the original:
+- new parameter for config (`RefurekuSettings.toml`): `additionalClangArguments` - additional arguments to add to libclang
+- new parameter for config (`RefurekuSettings.toml`): `shouldFailCodeGenerationOnClangErrors` - whether to ignore parsing errors or not, when parsing errors are ignored it may lead to incorrect type information for non-reflected types.
+- variables and fields have a new method `getCanonicalTypeName()` that returns type name (even for non-reflected types), **only works correctly when `shouldFailCodeGenerationOnClangErrors` is `true`**, example:
+```C++
+// ...
+FIELD()
+const vector<string> myValue; // returns string equal to `std::vector<std::basic_string<char>>`
 
-[![License: MIT](https://img.shields.io/github/license/jsoysouvanh/Refureku)](https://github.com/jsoysouvanh/Refureku/blob/master/LICENSE.md)
-[![Latest Release](https://img.shields.io/github/v/tag/jsoysouvanh/refureku?label=release)](https://github.com/jsoysouvanh/Refureku/releases/latest)
-[![codecov](https://codecov.io/gh/jsoysouvanh/Refureku/branch/master/graph/badge.svg?token=IG2AFIJI0M)](https://codecov.io/gh/jsoysouvanh/Refureku)
-[![documentation](https://img.shields.io/badge/API-documentation-ff69b4)](https://jsoysouvanh.github.io/Refureku/)
+FIELD()
+string myString; // returns string equal to `std::basic_string<char>`
+// ...
+```
 
-[![Windows](https://github.com/jsoysouvanh/Refureku/actions/workflows/tests_windows.yml/badge.svg?branch=master)](https://github.com/jsoysouvanh/Refureku/actions/workflows/tests_windows.yml)
-[![Linux](https://github.com/jsoysouvanh/Refureku/actions/workflows/tests_linux.yml/badge.svg?branch=master)](https://github.com/jsoysouvanh/Refureku/actions/workflows/tests_linux.yml)
-[![MacOS](https://github.com/jsoysouvanh/Refureku/actions/workflows/tests_macos.yml/badge.svg?branch=master)](https://github.com/jsoysouvanh/Refureku/actions/workflows/tests_macos.yml)
+# Setup (Build)
 
-</div>
+First, clone this repository:
+
+```
+git clone https://github.com/Flone-dnb/Refureku.git
+cd Refureku
+git submodule update --init --recursive
+```
+
+Then, if you've never used CMake before:
+
+Create a `build` directory next to this file, open created `build` directory and type `cmd` in Explorer's address bar. This will open up a console in which you need to type this:
+
+```
+cmake -DCMAKE_BUILD_TYPE=Debug .. // for debug mode
+cmake -DCMAKE_BUILD_TYPE=Release .. // for release mode
+```
+
+This will generate project files that you will use for development.
+
+# Update
+
+To update this repository:
+
+```
+git pull
+git submodule update --init --recursive
+```
 
 # Overview
 Refureku is a powerful C++17 runtime reflection dynamic library.  
