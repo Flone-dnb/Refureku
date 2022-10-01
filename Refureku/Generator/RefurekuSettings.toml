@@ -46,6 +46,9 @@ projectIncludeDirectories = [
 # Must be one of "msvc", "clang++", "g++"
 compilerExeName = "clang++"
 
+# Additional arguments to add to libclang
+additionalClangArguments = ""
+
 # Ignores parsing errors, may lead to incorrect type information for non-reflected types.
 shouldFailCodeGenerationOnClangErrors = false
 
