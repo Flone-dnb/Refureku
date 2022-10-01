@@ -1,5 +1,5 @@
 
 [submodule "Kodgen"]
 	path = Refureku/Generator/ThirdParty/Kodgen
-	url = https://github.com/jsoysouvanh/Kodgen
+	url = https://github.com/Flone-dnb/Kodgen
 	branch = master
