@@ -371,7 +371,7 @@ void ReflectionCodeGenModule::declareAndDefineGcNewMethod(kodgen::StructClassInf
 		sOverride += "override";
 	}
 	
-	inout_result += "public: virtual tgc2::gc<rfk::Object> gc_new() " + sOverride + " {return tgc2::gc_new<"
+	inout_result += "public: virtual sgc::GcPtr<rfk::Object> makeGcFromThisType() " + sOverride + " {return sgc::makeGc<"
 			+ structClass.name + ">();}" + env.getSeparator();
 }
 
